@@ -1,4 +1,4 @@
-const network = require("../config/chainConfig");
+const network = require("../config/chainConf");
 const WEB3 = require("web3");
 
 async function Test(req, res) {
