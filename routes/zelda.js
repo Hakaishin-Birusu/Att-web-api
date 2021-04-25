@@ -2,8 +2,20 @@ const express = require("express");
 const router = express.Router();
 const zeldaService = require("../services/zaldaHandler");
 
-router.get("/test", function (req, res) {
-  zeldaService.Test(req, res);
+router.get("/stats", function (req, res) {
+  zeldaService.Stats(req, res);
+});
+
+router.get("/history/:pnum", function (req, res) {
+  zeldaService.History(req, res);
+});
+
+router.get("/winners/", function (req, res) {
+  zeldaService.Winner(req, res);
+});
+
+router.get("/claim/:useraddress", function (req, res) {
+  zeldaService.UserClaim(req, res);
 });
 
 module.exports = router;
