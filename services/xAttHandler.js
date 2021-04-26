@@ -3,18 +3,13 @@ const WEB3 = require("web3");
 
 async function Stats(req, res) {
   try {
-    console.log("test");
-    res.json({ response: "Test" });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send(err);
-  }
-}
-
-async function StakeInfo(req, res) {
-  try {
-    console.log("test");
-    res.json({ response: "Test" });
+    var fResponse = {
+      totalRewards: 1000,
+      totalWinningPositions: 5,
+      rewardReset: 0,
+      criteria: "",
+    };
+    res.json({ response: fResponse });
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
@@ -23,8 +18,11 @@ async function StakeInfo(req, res) {
 
 async function UserStake(req, res) {
   try {
-    console.log("test");
-    res.json({ response: "Test" });
+    var fResponse = {
+      userAttbalance: 0,
+      userxAttStake: 0,
+    };
+    res.json({ response: fResponse });
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
@@ -33,8 +31,11 @@ async function UserStake(req, res) {
 
 async function UserUnstake(req, res) {
   try {
-    console.log("test");
-    res.json({ response: "Test" });
+    var fResponse = {
+      userxAttStake: 0,
+      userStakePosition: 0,
+    };
+    res.json({ response: fResponse });
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
@@ -43,7 +44,6 @@ async function UserUnstake(req, res) {
 
 module.exports = {
   Stats,
-  StakeInfo,
   UserStake,
   UserUnstake,
 };
