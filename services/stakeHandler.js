@@ -4,11 +4,13 @@ const WEB3 = require("web3");
 async function Stats(req, res) {
   try {
     var fResponse = {
-      totalStaked: 0,
-      totalReward: 0,
-      rewardReset: 0,
-      rewardMultiplier: 1,
-      apy: 0,
+      currentSupply: 0,
+      totalAttLocked:0,
+      rewardPoolSize: 0,
+      currentPrice:"",
+      criteria: "",
+      apy:""
+
     };
     res.json({ response: fResponse });
   } catch (err) {
@@ -17,11 +19,13 @@ async function Stats(req, res) {
   }
 }
 
+//userStake
 async function UserStake(req, res) {
   try {
     var fResponse = {
-      userbalance: 0,
-      userStake: 0,
+      userAttbalance: 0,
+      userAttValue: 0,
+      AttPrice:0
     };
     res.json({ response: fResponse });
   } catch (err) {
@@ -30,11 +34,13 @@ async function UserStake(req, res) {
   }
 }
 
+//userUnStake
 async function UserUnstake(req, res) {
   try {
     var fResponse = {
-      userStake: 0,
-      expectedReturn: 0,
+      userxAttStake: 0,
+      userxAttValue: 0,
+      xAttPrice:0
     };
     res.json({ response: fResponse });
   } catch (err) {

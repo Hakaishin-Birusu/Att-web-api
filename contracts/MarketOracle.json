@@ -1,6 +1,6 @@
 {
-  "oracleAddress": "0x2dF19009b4a48636699d4DbF00E1d7f923C6Fa47",
-  "oracleAbi": [
+  "address": "0x2dF19009b4a48636699d4DbF00E1d7f923C6Fa47",
+  "abi": [
     {
       "inputs": [
         { "internalType": "address", "name": "_controller", "type": "address" },

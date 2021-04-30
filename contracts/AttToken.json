@@ -1,6 +1,6 @@
 {
-  "attAddress": "0x233d91A0713155003fc4DcE0AFa871b508B3B715",
-  "attAbi": [
+  "address": "0x233d91A0713155003fc4DcE0AFa871b508B3B715",
+  "abi": [
     {
       "inputs": [],
       "payable": false,

@@ -5,6 +5,7 @@ const oracleConfig = require("../contracts/MarketOracle.json");
 
 async function primaryStats(req, res) {
   try {
+    //console.log("called-----------");
     var fResponse = {
       circulatingSupply: 0,
       oracleRate: 0,
@@ -14,12 +15,12 @@ async function primaryStats(req, res) {
 
     const web3 = new WEB3(network.rpc);
     let attInstance = new web3.eth.Contract(
-      attConfig.attAbi,
-      attConfig.attAddress
+      attConfig.abi,
+      attConfig.address
     );
     let oracleInstance = new web3.eth.Contract(
-      oracleConfig.oracleAbi,
-      oracleConfig.oracleAddress
+      oracleConfig.abi,
+      oracleConfig.address
     );
 
     let cSupply = await attInstance.methods.totalSupply().call();
@@ -34,7 +35,7 @@ async function primaryStats(req, res) {
     fResponse.marketCap =
       parseFloat(fResponse.circulatingSupply) *
       parseFloat(fResponse.oracleRate);
-
+    console.log("fResponse", fResponse);
     res.json({ response: fResponse });
   } catch (err) {
     console.log(err);
