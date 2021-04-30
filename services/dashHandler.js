@@ -6,11 +6,14 @@ const oracleConfig = require("../contracts/MarketOracle.json");
 async function primaryStats(req, res) {
   try {
     //console.log("called-----------");
+    //marketcap calculate kar lenge
     var fResponse = {
-      circulatingSupply: 0,
+      tvl: 0,
       oracleRate: 0,
       marketCap: 0,
       targetPrice: 1,
+      circulatingSupply:0,
+      nextBuyBack:"",
     };
 
     const web3 = new WEB3(network.rpc);
@@ -47,9 +50,7 @@ async function Stats(req, res) {
   try {
     var fResponse = {
       lastRebase: "",
-      nextRebase: "",
-      tvl: 0,
-      nextBuyBackDate: "",
+      nextRebaseCheck: "",
     };
     res.json({ response: fResponse });
   } catch (err) {
