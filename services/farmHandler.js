@@ -5,7 +5,7 @@ async function StatsLiquid(req, res) {
   try {
     var fResponse = {
       totalStaked: 0,
-      totalReward: 0,
+      totalRewardLeft: 0,
       rewardReset: 0,
       apy: 0,
     };
@@ -33,7 +33,7 @@ async function UserUnstakeLiquid(req, res) {
   try {
     var fResponse = {
       userStake: 0,
-      expectedReturn: 0,
+      userExpectedReturn: 0,
     };
     res.json({ response: fResponse });
   } catch (err) {
