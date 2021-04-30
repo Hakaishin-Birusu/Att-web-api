@@ -46,7 +46,8 @@ async function StatsPledge(req, res) {
   try {
     var fResponse = {
       totalStaked: 0,
-      totalReward: 0,
+      totalRewardLeftAtt: 0,
+      totalRewardLeftBusd: 0,
       rewardReset: 0,
       apy: 0,
     };
@@ -74,7 +75,8 @@ async function UserUnstakePledge(req, res) {
   try {
     var fResponse = {
       userStake: 0,
-      expectedReturn: 0,
+      userExpectedReturnAtt: 0,
+      userExpectedReturnBusd: 0,
     };
     res.json({ response: fResponse });
   } catch (err) {
