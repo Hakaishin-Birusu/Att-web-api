@@ -21,11 +21,18 @@ async function Stats(req, res) {
 
     let info = await instance.methods.stakeStats().call();
     console.log("info",info);
+    
 
-    fResponse.currentSupply = info.supply;
-    fResponse.totalAttLocked = info.attLocked;
-    fResponse.rewardPoolSize = info.xSafeBalance;
-    fResponse.currentPrice = info.price;
+    fResponse.currentSupply = parseFloat(
+      web3.utils.fromWei(info.supply, "ether")
+    ).toFixed(2);
+    fResponse.totalAttLocked = parseFloat(
+      web3.utils.fromWei(info.attLocked, "gwei")
+    ).toFixed(2);
+    fResponse.rewardPoolSize = parseFloat(
+      web3.utils.fromWei(info.xSafeBalance, "gwei")
+    ).toFixed(2);
+    fResponse.currentPrice =  parseFloat(info.price / 1e18).toFixed(2);
     fResponse.apy = 100;
 
 
@@ -37,7 +44,6 @@ async function Stats(req, res) {
   }
 }
 
-//userStake
 async function UserStake(req, res) {
   try {
 
@@ -58,9 +64,13 @@ async function UserStake(req, res) {
     let info = await instance.methods.userStake(user).call();
     console.log("info",info);
 
-    fResponse.userAttbalance = info.bal;
-    fResponse.userAttValue = info.estimatedValue;
-    fResponse.AttPrice = info.price;
+    fResponse.userAttbalance = parseFloat(
+      web3.utils.fromWei(info.bal, "gwei")
+    ).toFixed(2);
+    fResponse.userAttValue = parseFloat(
+      web3.utils.fromWei(info.estimatedValue, "ether")
+    ).toFixed(2);
+    fResponse.AttPrice = parseFloat(info.price / 1e18).toFixed(2);
 
     console.log("fResponse",fResponse);
     res.json({ response: fResponse });
@@ -70,7 +80,6 @@ async function UserStake(req, res) {
   }
 }
 
-//userUnStake
 async function UserUnstake(req, res) {
   try {
 
@@ -90,9 +99,13 @@ async function UserUnstake(req, res) {
     let info = await instance.methods.userUnStake(user).call();
     console.log("info",info);
 
-    fResponse.userxAttStake = info.xBal;
-    fResponse.userxAttValue = info.estimatedValue;
-    fResponse.xAttPrice = info.price;
+    fResponse.userxAttStake = parseFloat(
+      web3.utils.fromWei(info.xBal, "ether")
+    ).toFixed(2);
+    fResponse.userxAttValue = parseFloat(
+      web3.utils.fromWei(info.estimatedValue, "gwei")
+    ).toFixed(2);
+    fResponse.xAttPrice = parseFloat(info.price / 1e18).toFixed(2);
 
     console.log("fResponse",fResponse);
     res.json({ response: fResponse });

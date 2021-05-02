@@ -16,11 +16,15 @@ async function StatsLiquid(req, res) {
       config.address
     );
 
-    let info = await instance.methods.statsLiquid().call();
+    let info = await instance.methods.statsLiquid(0).call();
     console.log("info",info);
 
-    fResponse.totalStaked = info.totalStaked;
-    fResponse.totalRewardLeft = info.totalRewardLeft;
+    fResponse.totalStaked = parseFloat(
+        web3.utils.fromWei(info.totalStaked, "ether")
+      ).toFixed(5);
+    fResponse.totalRewardLeft = parseFloat(
+      web3.utils.fromWei(info.totalRewardLeft, "gwei")
+    ).toFixed(2);
     fResponse.rewardReset = info.resetblock;
     fResponse.apy = 100;
 
@@ -48,8 +52,12 @@ async function UserStakeLiquid(req, res) {
     let info = await instance.methods.userStakeLiquid(0, user).call();
     console.log("info",info);
 
-    fResponse.userbalance = info.balance;
-    fResponse.userStake = info.stake;
+    fResponse.userbalance = parseFloat(
+      web3.utils.fromWei(info.balance, "ether")
+    ).toFixed(5);
+    fResponse.userStake = parseFloat(
+      web3.utils.fromWei(info.stake, "ether")
+    ).toFixed(5);
 
     console.log("fResponse",fResponse);
  
@@ -76,8 +84,12 @@ async function UserUnstakeLiquid(req, res) {
     let info = await instance.methods.userUnstakeLiquid(0,user).call();
     console.log("info",info);
 
-    fResponse.userStake = info.stake;
-    fResponse.userExpectedReturn = info.estReturn;
+    fResponse.userStake = parseFloat(
+      web3.utils.fromWei(info.stake, "ether")
+    ).toFixed(5);
+    fResponse.userExpectedReturn = parseFloat(
+      web3.utils.fromWei(info.estReturn, "gwei")
+    ).toFixed(2);
 
     console.log("fResponse",fResponse);
     res.json({ response: fResponse });
@@ -102,12 +114,18 @@ async function StatsPledge(req, res) {
       config.address
     );
 
-    let info = await instance.methods.statsPledge().call();
+    let info = await instance.methods.statsPledge(0).call();
     console.log("info",info);
 
-    fResponse.totalStaked = info.totalStaked;
-    fResponse.totalRewardLeftAtt = info.totalRewardLeftAtt;
-    fResponse.totalRewardLeftBusd = info.totalRewardLeftBusd;
+    fResponse.totalStaked = parseFloat(
+      web3.utils.fromWei(info.totalStaked, "ether")
+    ).toFixed(5);
+    fResponse.totalRewardLeftAtt = parseFloat(
+      web3.utils.fromWei(info.totalRewardLeftAtt, "gwei")
+    ).toFixed(2);
+    fResponse.totalRewardLeftBusd = parseFloat(
+      web3.utils.fromWei(info.totalRewardLeftBusd, "ether")
+    ).toFixed(2);
     fResponse.rewardReset = info.endblock;
     fResponse.apy = 100;
 
@@ -135,8 +153,12 @@ async function UserStakePledge(req, res) {
     let info = await instance.methods.userStakePledge(0,user).call();
     console.log("info",info);
 
-    fResponse.userbalance = info.balance;
-    fResponse.userStake = info.stake;
+    fResponse.userbalance = parseFloat(
+      web3.utils.fromWei(info.balance, "ether")
+    ).toFixed(5);
+    fResponse.userStake = parseFloat(
+      web3.utils.fromWei(info.stake, "ether")
+    ).toFixed(5);
 
     console.log("fResponse",fResponse);
  
@@ -164,12 +186,17 @@ async function UserUnstakePledge(req, res) {
     let info = await instance.methods.userUnstakePledge(0,user).call();
     console.log("info",info);
 
-    fResponse.userStake = info.stake;
-    fResponse.userExpectedReturnAtt = info.estReturnAtt;
-    fResponse.userExpectedReturnBusd = info.estReturnBusd;
+    fResponse.userStake = parseFloat(
+      web3.utils.fromWei(info.stake, "ether")
+    ).toFixed(5);
+    fResponse.userExpectedReturnAtt = parseFloat(
+      web3.utils.fromWei(info.estReturnAtt, "gwei")
+    ).toFixed(2);
+    fResponse.userExpectedReturnBusd = parseFloat(
+      web3.utils.fromWei(info.estReturnBusd, "ether")
+    ).toFixed(2);
 
     console.log("fResponse",fResponse);
- 
     res.json({ response: fResponse });
   } catch (err) {
     console.log(err);

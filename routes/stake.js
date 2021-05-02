@@ -6,11 +6,11 @@ router.get("/stats", function (req, res) {
   stakeService.Stats(req, res);
 });
 
-router.get("/userstake/:user", function (req, res) {
+router.get("/userstake/:userAddress", function (req, res) {
   stakeService.UserStake(req, res);
 });
 
-router.get("/userunstake/:user", function (req, res) {
+router.get("/userunstake/:userAddress", function (req, res) {
   stakeService.UserUnstake(req, res);
 });
 

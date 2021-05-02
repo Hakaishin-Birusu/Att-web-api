@@ -1,3 +1,3 @@
 module.exports = {
-  rpc: "https://bsc-dataseed1.defibit.io/",
+  rpc: "https://data-seed-prebsc-2-s3.binance.org:8545/",
 };

@@ -11,8 +11,8 @@ async function primaryStats(req, res) {
       oracleRate: 0,
       marketCap: 0,
       targetPrice: 1,
-      circulatingSupply:0,
-      nextBuyBack:"",
+      circulatingSupply: 0,
+      nextBuyBack: "15/05/2021",
     };
     const web3 = new WEB3(network.rpc);
     let instance = new web3.eth.Contract(
@@ -21,27 +21,19 @@ async function primaryStats(req, res) {
     );
 
     let info = await instance.methods.primaryStatsDash().call();
-    console.log("info",info);
+    console.log("info", info);
+    fResponse.oracleRate = parseFloat(info.oracleRate / 1e18).toFixed(5);
+    fResponse.circulatingSupply = parseFloat(
+      web3.utils.fromWei(info.circulatingSupply, "gwei")
+    ).toFixed(2);
+    fResponse.marketCap =
+      (parseFloat(fResponse.circulatingSupply) *
+        parseFloat(fResponse.oracleRate)).toFixed(2);
+
+    
 //uint256 totalAttLocked, uint256 totalBusdLocked, uint256 totalBnbAttLpLocked , uint256 oracleRate,uint256 targetPrice, uint256 circulatingSupply
-    fResponse.tvl = info.totalStaked;
-    fResponse.oracleRate = info.totalRewardLeft;
-    fResponse.marketCap = info.resetblock;
-    fResponse.targetPrice = 100;
-    fResponse.circulatingSupply = info.resetblock;
-    fResponse.nextBuyBack = 100;
+fResponse.tvl = 100000000;
 
-
-    console.log("fResponse",fResponse);
-
-    // fResponse.circulatingSupply = parseFloat(
-    //   web3.utils.fromWei(cSupply, "gwei")
-    // ).toFixed(2);
-
-    //fResponse.oracleRate = parseFloat(cRate / 1e18).toFixed(2);
-
-    // fResponse.marketCap =
-    //   parseFloat(fResponse.circulatingSupply) *
-    //   parseFloat(fResponse.oracleRate);
     console.log("fResponse", fResponse);
     res.json({ response: fResponse });
   } catch (err) {
@@ -64,12 +56,12 @@ async function Stats(req, res) {
     );
 
     let info = await instance.methods.statsDash().call();
-    console.log("info",info);
+    console.log("info", info);
 
     fResponse.lastRebase = info.lastRebase;
     fResponse.nextRebaseCheck = info.nextRebase;
 
-    console.log("fResponse",fResponse);
+    console.log("fResponse", fResponse);
     res.json({ response: fResponse });
   } catch (err) {
     console.log(err);
