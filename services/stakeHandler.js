@@ -9,8 +9,8 @@ async function Stats(req, res) {
       totalAttLocked:0,
       rewardPoolSize: 0,
       currentPrice:"",
-      criteria: "stake your ATT and receive more ATT over time",
-      apy:""
+      apy:"",
+      rewardReset:""
     };
 
     const web3 = new WEB3(network.rpc);

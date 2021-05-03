@@ -8,7 +8,6 @@ async function Stats(req, res) {
       totalRewardPerDay: 1000,
       totalWinningPositions: 5,
       distributionCounter: 0,
-      lotteryCriteria: "Buy ATT token daily of worth $10 from pancake"
     };
 
     const web3 = new WEB3(network.rpc);
@@ -29,7 +28,9 @@ async function Stats(req, res) {
 
 async function History(req, res) {
   try {
-    const pnum = req.params.pnum;
+    var pnum = req.params.pnum;
+    console.log("pnum", pnum)
+    let winnerInfo;
     var fResponse = [];
 
     const web3 = new WEB3(network.rpc);
@@ -38,47 +39,24 @@ async function History(req, res) {
       config.address
     );
 
-    let winnerInfo = await instance.methods.winHistory(pnum).call();
-    console.log("winnerInfo", winnerInfo);
-
+    if(pnum == undefined || pnum == 10101010101){
+    winnerInfo = await instance.methods.currentWin().call();
+    pnum = await instance.methods.currentZeldaCount().call();
+    console.log("winnerInfo1");
+    }else{
+    winnerInfo = await instance.methods.winHistory(pnum).call();
+    console.log("winnerInfo2");
+    }
     for (i = 0; i < winnerInfo.length; i++) {
       fResponse.push({
         winnerAddress: winnerInfo[i].winnerAddress,
         claimAmount: web3.utils.fromWei(winnerInfo[i].claimAmount, "gwei"),
         position: winnerInfo[i].position,
         hasPendingClaim: winnerInfo[i].hasPendingClaim,
+        pNum:pnum
       });
     }
 
-    console.log("fResponse", fResponse);
-    res.json({ response: fResponse });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send(err);
-  }
-}
-
-async function Winner(req, res) {
-  try {
-    var fResponse = [];
-
-    const web3 = new WEB3(network.rpc);
-    let instance = new web3.eth.Contract(
-      config.abi,
-      config.address
-    );
-
-    let winnerInfo = await instance.methods.currentWin().call();
-    console.log("winnerInfo", winnerInfo);
-
-    for (i = 0; i < winnerInfo.length; i++) {
-      fResponse.push({
-        winnerAddress: winnerInfo[i].winnerAddress,
-        claimAmount: web3.utils.fromWei(winnerInfo[i].claimAmount, "gwei"),
-        position: winnerInfo[i].position,
-        hasPendingClaim: winnerInfo[i].hasPendingClaim,
-      });
-    }
     console.log("fResponse", fResponse);
     res.json({ response: fResponse });
   } catch (err) {
@@ -119,6 +97,5 @@ async function UserClaim(req, res) {
 module.exports = {
   Stats,
   History,
-  Winner,
   UserClaim,
 };

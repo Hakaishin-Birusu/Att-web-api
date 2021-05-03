@@ -10,10 +10,6 @@ router.get("/history/:pnum", function (req, res) {
   zeldaService.History(req, res);
 });
 
-router.get("/winners/", function (req, res) {
-  zeldaService.Winner(req, res);
-});
-
 router.get("/claim/:useraddress", function (req, res) {
   zeldaService.UserClaim(req, res);
 });
