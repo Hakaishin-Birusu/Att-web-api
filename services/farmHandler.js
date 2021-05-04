@@ -176,6 +176,7 @@ async function UserUnstakePledge(req, res) {
       userStake: 0,
       userExpectedReturnAtt: 0,
       userExpectedReturnBusd: 0,
+      canUnstake:false
     };
     const web3 = new WEB3(network.rpc);
     let instance = new web3.eth.Contract(
