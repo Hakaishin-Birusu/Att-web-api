@@ -8,7 +8,7 @@ async function Stats(req, res) {
       currentSupply: 0,
       totalAttLocked:0,
       rewardPoolSize: 0,
-      currentPrice:"",
+      currentRate:"",
       apy:"",
       rewardReset:""
     };
@@ -32,8 +32,9 @@ async function Stats(req, res) {
     fResponse.rewardPoolSize = parseFloat(
       web3.utils.fromWei(info.xSafeBalance, "gwei")
     ).toFixed(2);
-    fResponse.currentPrice =  parseFloat(info.price / 1e18).toFixed(2);
+    fResponse.currentRate =  parseFloat(info.price / 1e18).toFixed(2);
     fResponse.apy = 100;
+    fResponse.rewardReset= 56097890;
 
 
     console.log("fResponse",fResponse);
@@ -49,9 +50,7 @@ async function UserStake(req, res) {
 
     const user = req.params.userAddress;
     var fResponse = {
-      userAttbalance: 0,
-      userAttValue: 0,
-      AttPrice:0
+      userAttbalance: 0
     };
 
     const web3 = new WEB3(network.rpc);
@@ -67,10 +66,6 @@ async function UserStake(req, res) {
     fResponse.userAttbalance = parseFloat(
       web3.utils.fromWei(info.bal, "gwei")
     ).toFixed(2);
-    fResponse.userAttValue = parseFloat(
-      web3.utils.fromWei(info.estimatedValue, "ether")
-    ).toFixed(2);
-    fResponse.AttPrice = parseFloat(info.price / 1e18).toFixed(2);
 
     console.log("fResponse",fResponse);
     res.json({ response: fResponse });
@@ -85,9 +80,7 @@ async function UserUnstake(req, res) {
 
     const user = req.params.userAddress;
     var fResponse = {
-      userxAttStake: 0,
-      userxAttValue: 0,
-      xAttPrice:0
+      userxAttStake: 0
     };
 
     const web3 = new WEB3(network.rpc);
@@ -102,10 +95,6 @@ async function UserUnstake(req, res) {
     fResponse.userxAttStake = parseFloat(
       web3.utils.fromWei(info.xBal, "ether")
     ).toFixed(2);
-    fResponse.userxAttValue = parseFloat(
-      web3.utils.fromWei(info.estimatedValue, "gwei")
-    ).toFixed(2);
-    fResponse.xAttPrice = parseFloat(info.price / 1e18).toFixed(2);
 
     console.log("fResponse",fResponse);
     res.json({ response: fResponse });

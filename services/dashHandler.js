@@ -47,6 +47,7 @@ async function Stats(req, res) {
     var fResponse = {
       lastRebase: "",
       nextRebaseCheck: "",
+      canRebase:false
     };
 
     const web3 = new WEB3(network.rpc);
@@ -60,6 +61,7 @@ async function Stats(req, res) {
 
     fResponse.lastRebase = info.lastRebase;
     fResponse.nextRebaseCheck = info.nextRebase;
+    //fResponse.canRebase = info.canRebase;
 
     console.log("fResponse", fResponse);
     res.json({ response: fResponse });
